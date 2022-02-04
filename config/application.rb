@@ -8,6 +8,12 @@ Bundler.require(*Rails.groups)
 
 module AwsTest
   class Application < Rails::Application
+
+    if File.exist?('.env')
+      require 'dotenv'
+      Dotenv.load('.env.local')
+    end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
