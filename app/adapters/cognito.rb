@@ -74,4 +74,13 @@ class Cognito
     }
     client.admin_create_user(auth_object)
   end
+
+  def set_password(username:, password:, permanent: false)
+    resp = client.admin_set_user_password({
+      user_pool_id: @user_pool_id,
+      username: username,
+      password: password,
+      permanent: permanent,
+    })
+  end
 end

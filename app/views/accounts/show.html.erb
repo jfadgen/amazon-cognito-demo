@@ -1,0 +1,12 @@
+<div>
+  <h1>You're logged in!</h1>
+
+  <ul>
+    <% @result.authentication_result.to_h.each do |k,v| %>
+      <li>
+        <label><%= k %>:</label>
+        <textarea style="height: 5rem; width: 20rem;"><%= v %></textarea>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,14 @@
+<div>
+  <h1>Sign In Page</h1>
+
+  <% if @message.present? %>
+    <%= @message %>
+  <% end %>
+
+  <%= form_with url: accounts_index_path do |f| %>
+    <%= f.text_field :email, value: "john.fadgen@gmail.com" %><br>
+    <%= f.password_field :password %><br>
+
+    <%= f.submit "Sign In!" %>
+  <% end %>
+</div>
