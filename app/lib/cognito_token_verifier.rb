@@ -1,4 +1,5 @@
 # Credit: https://github.com/CodingAnarchy/cognito_token_verifier
+# MIT License
 module CognitoTokenVerifier
   class << self
     attr_accessor :config

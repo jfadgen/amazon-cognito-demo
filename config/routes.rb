@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root "accounts#index"
 
-  get 'auth/index'
-  get 'accounts/index'
-  post 'accounts/index'
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :accounts, only: [:index, :create] do
+    collection do
+      get 'welcome'
+      delete 'sign_out'
+    end
+  end
 end
