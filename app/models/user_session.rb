@@ -14,6 +14,10 @@ class UserSession < ApplicationRecord
     update!(access_token: response.authentication_result.access_token, id_token: response.authentication_result.id_token)
   end
 
+  def decoded_email
+    decoded_id_token.decoded_token["email"]
+  end
+
   private
 
   def decoded_id_token

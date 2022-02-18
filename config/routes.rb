@@ -7,4 +7,8 @@ Rails.application.routes.draw do
       delete 'sign_out'
     end
   end
+
+  resources :auth, only: [:index] do
+
+  end
 end
