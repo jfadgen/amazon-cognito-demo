@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :accounts, only: [:index, :create] do
     collection do
       get 'welcome'
+      get 'unauthorized'
       delete 'sign_out'
     end
   end

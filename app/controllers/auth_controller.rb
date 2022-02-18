@@ -5,12 +5,17 @@ class AuthController < ApplicationController
 
       if response.code == "200"
         user_session = create_user_session(response)
-        render json: { response: "good: user_session: #{user_session.id}" }
+
+        Rails.logger.info "Successfully authenticated."
+        session[:current_user] = user_session.user
+        redirect_to welcome_accounts_path
       else
-        render json: { response: "Access Denied"}
+        Rails.logger.info "Access Denied."
+        redirect_to unauthorized_accounts_path
       end
     else
-      render json: { response: "Missing Code"}
+      Rails.logger.info "Access Denied: Missing code."
+      redirect_to unauthorized_accounts_path
     end
   end
 
