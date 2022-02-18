@@ -36,3 +36,4 @@
 
 .aws/
 .env.local
+lib/cognito/jwks.json
