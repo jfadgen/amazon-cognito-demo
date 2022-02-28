@@ -9,11 +9,17 @@ class AccountsController < ApplicationController
       @message = "Please enter both a username and password."
       render :index, status: :unauthorized
     else
-      user ||= User.find_by(email: params[:email])
-      user.authenticate!(auth_params)
-      session[:current_user] = user
+      user = User.find_by(email: params[:email])
 
-      redirect_to welcome_accounts_path
+      if user.nil?
+        @message = "Unknown user."
+        render :index, status: :unauthorized
+      else
+        user.authenticate!(auth_params)
+        session[:current_user] = user
+
+        redirect_to welcome_accounts_path
+      end
     end
   end
 
@@ -54,6 +60,7 @@ class AccountsController < ApplicationController
   end
 
   def current_user
+    return unless session[:current_user]
     @current_user ||= User.find_by(email: session[:current_user]["email"])
   end
 
