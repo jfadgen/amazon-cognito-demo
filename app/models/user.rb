@@ -14,4 +14,17 @@ class User < ApplicationRecord
   def active_session
     @active_session ||= user_sessions.last unless user_sessions.last.expired?
   end
+
+  def change_password!(password:)
+    user = Cognito.new.set_password(username: email, password: password, permanent: true)
+  end
+
+  def self.create_cognito_user!(email:, password:)
+    find_or_create_by(email: email)
+
+    Cognito.new.create_user(username: email, password: password)
+
+    # This is temporary until this app is configured to handle password resets.
+    Cognito.new.set_password(username: email, password: password, permanent: true)
+  end
 end

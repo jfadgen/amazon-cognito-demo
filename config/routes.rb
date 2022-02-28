@@ -12,4 +12,11 @@ Rails.application.routes.draw do
   resources :auth, only: [:index] do
 
   end
+
+  get :admin, :to => 'admin/accounts#index'
+  namespace :admin do
+    resources :accounts, only: [:index, :show, :create] do
+      post 'change_password'
+    end
+  end
 end

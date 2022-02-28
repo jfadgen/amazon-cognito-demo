@@ -1,0 +1,22 @@
+<div class="content">
+  <h1>Admin page<h1>
+
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+  <h4>Create User</h4>
+  <%= form_with url: admin_accounts_path do |f| %>
+    <%= f.text_field :email %><br>
+    <%= f.password_field :password %><br>
+
+    <%= f.submit "Create User", class: "pure-button" %>
+  <% end %>
+
+  <h4>View User Details</h4>
+  <ul>
+  <% @users.each do |user| %>
+    <li><%= link_to user.email, admin_account_path(id: user.id) %></li>
+  <% end %>
+  </ul>
+</div>
