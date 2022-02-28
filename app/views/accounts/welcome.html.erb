@@ -1,4 +1,4 @@
-<div>
+<div class="content">
   <h1>You're logged in and validated!</h1>
 
   <h2><%= @message %></h2>
@@ -12,7 +12,7 @@
   </div>
 
   <div>
-    <%= button_to 'Sign Out', sign_out_accounts_path, method: :delete %>
+    <%= button_to 'Sign Out', sign_out_accounts_path, method: :delete, class: "pure-button" %>
   </div>
 
 </div>

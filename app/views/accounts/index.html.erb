@@ -1,4 +1,4 @@
-<div>
+<div class="content">
   <h1>Sign In Page</h1>
 
   <% if @message.present? %>
@@ -9,6 +9,6 @@
     <%= f.text_field :email, value: "john.fadgen@gmail.com" %><br>
     <%= f.password_field :password %><br>
 
-    <%= f.submit "Sign In!" %>
+    <%= f.submit "Sign In!", class: "pure-button" %>
   <% end %>
 </div>
