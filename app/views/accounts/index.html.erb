@@ -6,7 +6,7 @@
   <% end %>
 
   <%= form_with url: accounts_path do |f| %>
-    <%= f.text_field :email, value: "john.fadgen@gmail.com" %><br>
+    <%= f.text_field :email %><br>
     <%= f.password_field :password %><br>
 
     <%= f.submit "Sign In!", class: "pure-button" %>
