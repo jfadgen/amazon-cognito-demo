@@ -1,8 +1,11 @@
 class AccountsController < ApplicationController
+  class SessionExpiredError < StandardError; end
+
   rescue_from Aws::CognitoIdentityProvider::Errors::NotAuthorizedException, with: :deny_access
+  rescue_from SessionExpiredError, with: :session_expired
 
   before_action :current_user, only: [:index, :welcome]
-  after_action :refresh_session, only: [:welcome]
+  before_action :refresh_session, only: [:welcome]
 
   def create
     unless valid_submission?
@@ -51,6 +54,11 @@ class AccountsController < ApplicationController
     render :index, status: :unauthorized
   end
 
+  def session_expired
+    @message = "Session has expired."
+    render :index, status: :unauthorized
+  end
+
   def valid_submission?
     params[:email].present? && params[:password].present?
   end
@@ -65,6 +73,8 @@ class AccountsController < ApplicationController
   end
 
   def refresh_session
+    raise SessionExpiredError unless current_user&.active_session.present?
+
     current_user.active_session.refresh_session
   end
 end
