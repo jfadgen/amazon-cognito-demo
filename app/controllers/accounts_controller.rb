@@ -55,7 +55,7 @@ class AccountsController < ApplicationController
   end
 
   def session_expired
-    @message = "Session has expired."
+    @message = "Session has expired." if session[:current_user].present?
     render :index, status: :unauthorized
   end
 
