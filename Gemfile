@@ -50,7 +50,7 @@ gem "bootsnap", require: false
 
 gem "aws-sdk-cognitoidentityprovider"
 gem "dotenv"
-gem "json-jwt" # May not be needed
+gem "json-jwt"
 gem "rest-client"
 
 group :development, :test do

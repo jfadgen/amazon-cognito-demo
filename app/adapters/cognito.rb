@@ -9,7 +9,7 @@ class Cognito
   end
 
   def client
-    @client ||= client = Aws::CognitoIdentityProvider::Client.new(
+    @client ||= Aws::CognitoIdentityProvider::Client.new(
       region: @aws_region,
       access_key_id: @aws_access_key_id,
       secret_access_key: @secret_access_key)
