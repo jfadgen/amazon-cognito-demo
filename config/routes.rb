@@ -1,6 +1,22 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root "accounts#index"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :accounts, only: [:index, :create] do
+    collection do
+      get 'welcome'
+      get 'unauthorized'
+      delete 'sign_out'
+    end
+  end
+
+  resources :auth, only: [:index] do
+
+  end
+
+  get :admin, :to => 'admin/accounts#index'
+  namespace :admin do
+    resources :accounts, only: [:index, :show, :create] do
+      post 'change_password'
+    end
+  end
 end

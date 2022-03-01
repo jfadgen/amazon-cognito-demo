@@ -1,0 +1,18 @@
+<div class="content">
+  <h1>You're logged in and validated!</h1>
+
+  <h2><%= @message %></h2>
+
+  <div>
+    <%= @current_user.email %>
+  </div>
+  <div>
+    Your session will expire at
+    <%= Time.at @current_user.active_session.expiration %>
+  </div>
+
+  <div>
+    <%= button_to 'Sign Out', sign_out_accounts_path, method: :delete, class: "pure-button pure-button-primary" %>
+  </div>
+
+</div>

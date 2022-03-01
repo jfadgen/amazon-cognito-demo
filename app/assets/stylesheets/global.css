@@ -1,0 +1,16 @@
+body {
+  background-color: #eee;
+}
+
+input {
+  width: 20rem;
+  padding: 5px;
+}
+
+.sign-in {
+  text-align: center;
+}
+
+.sign-in > div {
+  margin: 0 auto;
+}

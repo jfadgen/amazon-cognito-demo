@@ -1,0 +1,18 @@
+<div class="content">
+  <h1>Admin page<h1>
+
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+  <h2><%= @user.email %></h2>
+  <div class="content-section">
+    Change Password
+
+    <%= form_with url: admin_account_change_password_path(@user.id), class: "pure-form" do |f| %>
+      <%= f.password_field :password, placeholder: "Password" %><br>
+
+      <%= f.submit "Change Password", class: "pure-button pure-button-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -33,3 +33,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+.aws/
+.env.local
+lib/cognito/jwks.json
