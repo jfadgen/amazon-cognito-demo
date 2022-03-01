@@ -1,14 +1,17 @@
-<div class="content">
-  <h1>Sign In Page</h1>
+<div class="content sign-in">
+  <h1>Sign In</h1>
 
-  <% if @message.present? %>
-    <%= @message %>
+  <div class="content-section">
+
+    <% if @message.present? %>
+      <%= @message %>
+    <% end %>
+
+  <%= form_with url: accounts_path, class: "pure-form" do |f| %>
+    <%= f.text_field :email, placeholder: "Email" %><br>
+    <%= f.password_field :password, placeholder: "Password" %><br>
+
+    <%= f.submit "Sign In", class: "pure-button pure-button-primary" %>
   <% end %>
-
-  <%= form_with url: accounts_path do |f| %>
-    <%= f.text_field :email %><br>
-    <%= f.password_field :password %><br>
-
-    <%= f.submit "Sign In!", class: "pure-button" %>
-  <% end %>
+  </div>
 </div>

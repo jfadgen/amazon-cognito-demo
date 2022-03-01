@@ -285,3 +285,13 @@ a.pure-button-primary {
       font-size: 300%;
   }
 }
+
+/*
+ * Customizations
+ */
+.content-section {
+  border: 1px solid #888;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 25rem;
+}
