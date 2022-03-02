@@ -49,6 +49,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "aws-sdk-cognitoidentityprovider"
+gem "cognito_token_verifier"
 gem "dotenv"
 gem "json-jwt"
 gem "rest-client"

@@ -96,6 +96,10 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     childprocess (4.1.0)
+    cognito_token_verifier (0.6.0)
+      activesupport (>= 5.2)
+      json-jwt (~> 1.11)
+      rest-client (~> 2.0)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
     debug (1.4.0)
@@ -256,6 +260,7 @@ DEPENDENCIES
   aws-sdk-cognitoidentityprovider
   bootsnap
   capybara
+  cognito_token_verifier
   debug
   dotenv
   importmap-rails
