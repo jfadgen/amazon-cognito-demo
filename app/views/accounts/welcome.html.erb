@@ -1,6 +1,9 @@
 <div class="content">
-  <h1>You're logged in and validated!</h1>
-
+  <% if @current_user.full_name.present? %>
+    <h1>Welcome, <%= @current_user.full_name %>!</h1>
+  <% else %>
+    Welcome!  We're missing your name!
+  <% end %>
   <div>
     <%= @current_user.email %>
   </div>
