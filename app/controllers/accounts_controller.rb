@@ -23,7 +23,7 @@ class AccountsController < ApplicationController
 
         Rails.logger.info "\n ~~ Redirect URL: #{params[:redirect_url]}"
         if params[:redirect_url].present?
-          redirect_to redirect_url
+          redirect_to redirect_url, allow_other_host: true
         else
           redirect_to welcome_accounts_path
         end
