@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :user_sessions
 
+  delegate :full_name, to: :active_session
+
   def authenticate!(auth_params)
     cognito_authentication = Cognito.new.authenticate(**auth_params)
 

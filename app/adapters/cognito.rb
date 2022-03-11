@@ -63,7 +63,7 @@ class Cognito
   end
 
   def create_user(username:, password:, user_attributes: {})
-    # Cognito.new.create_user(username: 'taco', password: 'P@ssword1', user_attributes: [{name: "email", value: "test@good.com"}])
+    # Cognito.new.create_user(username: 'test.user@example.com', password: 'P@ssword1', user_attributes: [{name: "email", value: "test@good.com"}])
     auth_object = {
       user_pool_id: @user_pool_id,
       username: username,
@@ -73,6 +73,16 @@ class Cognito
       desired_delivery_mediums: ["EMAIL"],
     }
     client.admin_create_user(auth_object)
+  end
+
+  def update_user(username:, user_attributes: {})
+    # Cognito.new.update_user(username: 'test.user@example.com', user_attributes: [{name: "given_name", value: "Bob"}, {name: "family_name", value: "Roberts"}])
+    auth_object = {
+      user_pool_id: @user_pool_id,
+      username: username,
+      user_attributes: user_attributes
+    }
+    client.admin_update_user_attributes(auth_object)
   end
 
   def set_password(username:, password:, permanent: false)

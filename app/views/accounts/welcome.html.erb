@@ -1,8 +1,9 @@
 <div class="content">
-  <h1>You're logged in and validated!</h1>
-
-  <h2><%= @message %></h2>
-
+  <% if @current_user.full_name.present? %>
+    <h1>Welcome, <%= @current_user.full_name %>!</h1>
+  <% else %>
+    Welcome!  We're missing your name!
+  <% end %>
   <div>
     <%= @current_user.email %>
   </div>
@@ -12,7 +13,7 @@
   </div>
 
   <div>
-    <%= button_to 'Sign Out', sign_out_accounts_path, method: :delete, class: "pure-button pure-button-primary" %>
+    <%= button_to 'Sign Out', sign_out_accounts_path, method: :get, class: "pure-button pure-button-primary" %>
   </div>
 
 </div>

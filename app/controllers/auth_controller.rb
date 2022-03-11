@@ -28,7 +28,7 @@ class AuthController < ApplicationController
       access_token: response_json["access_token"],
       refresh_token: response_json["refresh_token"],
     )
-    user = User.find_by(email: user_session.decoded_email)
+    user = User.find_by(email: user_session.email)
     user_session.update(user_id: user.id)
     user_session
   end
