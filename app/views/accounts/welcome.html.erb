@@ -1,8 +1,6 @@
 <div class="content">
   <h1>You're logged in and validated!</h1>
 
-  <h2><%= @message %></h2>
-
   <div>
     <%= @current_user.email %>
   </div>
@@ -12,7 +10,7 @@
   </div>
 
   <div>
-    <%= button_to 'Sign Out', sign_out_accounts_path, method: :delete, class: "pure-button pure-button-primary" %>
+    <%= button_to 'Sign Out', sign_out_accounts_path, method: :get, class: "pure-button pure-button-primary" %>
   </div>
 
 </div>

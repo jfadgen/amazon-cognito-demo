@@ -1,0 +1,14 @@
+<div class="content sign-in">
+  <h1>Continue Session</h1>
+
+  <div class="content-section">
+    <p>You are currently logged in as <%= session[:current_user]["email"] %></p>
+
+    <p>Would you like to continue your session?</p>
+
+    <div>
+      <%= link_to "Stay Logged In", welcome_accounts_path, class: "pure-button pure-button-primary" %><br/><br/>
+      <%= link_to "Sign In as a Different User", sign_out_accounts_path, class: "pure-button pure-button-primary" %>
+    </div>
+  </div>
+</div>

@@ -5,29 +5,38 @@ class AccountsController < ApplicationController
   rescue_from SessionExpiredError, with: :session_expired
 
   before_action :current_user, only: [:index, :welcome]
-  before_action :refresh_session, only: [:welcome]
+  before_action :refresh_session!, only: [:welcome]
 
   def create
     unless valid_submission?
-      @message = "Please enter both a username and password."
+      flash[:info] = "Please enter both a username and password."
       render :index, status: :unauthorized
     else
       user = User.find_by(email: params[:email])
 
       if user.nil?
-        @message = "Unknown user."
+        flash[:info] = "Unknown user."
         render :index, status: :unauthorized
       else
         user.authenticate!(auth_params)
         session[:current_user] = user
 
-        redirect_to welcome_accounts_path
+        Rails.logger.info "\n ~~ Redirect URL: #{params[:redirect_url]}"
+        if params[:redirect_url].present?
+          redirect_to redirect_url
+        else
+          redirect_to welcome_accounts_path
+        end
       end
     end
   end
 
   def index
     Rails.logger.info "~ index"
+
+    if refresh_session && current_user&.active_session
+      render "continue_session"
+    end
   end
 
   def welcome
@@ -35,9 +44,8 @@ class AccountsController < ApplicationController
   end
 
   def sign_out
-    @message = "You have been signed out."
     session[:current_user] = nil
-    render :index, status: :unauthorized
+    redirect_to accounts_path, info: "You have been signed out."
   end
 
   private
@@ -50,12 +58,12 @@ class AccountsController < ApplicationController
   end
 
   def deny_access
-    @message = "Access denied."
+    flash[:info] = "Access denied."
     render :index, status: :unauthorized
   end
 
   def session_expired
-    @message = "Session has expired." if session[:current_user].present?
+    flash[:info] = "Session has expired." if session[:current_user].present?
     render :index, status: :unauthorized
   end
 
@@ -72,9 +80,20 @@ class AccountsController < ApplicationController
     @current_user ||= User.find_by(email: session[:current_user]["email"])
   end
 
-  def refresh_session
+  def refresh_session!
     raise SessionExpiredError unless current_user&.active_session.present?
 
-    current_user.active_session.refresh_session
+    refresh_session
+  end
+
+  def refresh_session
+    current_user.active_session.refresh_session if current_user&.active_session.present?
+  end
+
+  def redirect_url
+    redirect_url = URI.parse(params[:redirect_url])
+    new_redirect_url = URI.decode_www_form(String(redirect_url.query)) << ["access_key", "temp_access_key"]
+    redirect_url.query = URI.encode_www_form(new_redirect_url)
+    redirect_url.to_s
   end
 end

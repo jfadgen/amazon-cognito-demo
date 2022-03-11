@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     collection do
       get 'welcome'
       get 'unauthorized'
-      delete 'sign_out'
+      get 'sign_out'
     end
   end
 
