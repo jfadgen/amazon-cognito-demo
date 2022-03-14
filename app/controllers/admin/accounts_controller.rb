@@ -7,11 +7,12 @@ class Admin::AccountsController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @cognito_user = CognitoUser.new(@user.email)
   end
 
   def create
     flash[:message] = "Account for #{params[:email]} has been created."
-    @user = User.create_cognito_user!(email: params[:email], password: params[:password])
+    @user = User.create_cognito_user!(**create_params)
 
     redirect_to admin_accounts_path
   end
@@ -31,5 +32,14 @@ class Admin::AccountsController < ApplicationController
     flash[:message] = "Account #{params[:email]} already exists."
 
     redirect_to admin_accounts_path
+  end
+
+  def create_params
+    {
+      email: params[:email],
+      password: params[:password],
+      given_name: params[:given_name],
+      family_name: params[:family_name],
+    }
   end
 end

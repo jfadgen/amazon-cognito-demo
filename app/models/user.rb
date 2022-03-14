@@ -21,10 +21,14 @@ class User < ApplicationRecord
     user = Cognito.new.set_password(username: email, password: password, permanent: true)
   end
 
-  def self.create_cognito_user!(email:, password:)
+  def self.create_cognito_user!(email:, password:, given_name:, family_name:)
     find_or_create_by(email: email)
 
-    Cognito.new.create_user(username: email, password: password)
+    user_attributes = [
+      { name: "given_name", value: given_name },
+      { name: "family_name", value: family_name },
+    ]
+    Cognito.new.create_user(username: email, password: password, user_attributes: user_attributes)
 
     # This is temporary until this app is configured to handle password resets.
     Cognito.new.set_password(username: email, password: password, permanent: true)

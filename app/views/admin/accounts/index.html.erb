@@ -10,6 +10,8 @@
     <%= form_with url: admin_accounts_path, class: "pure-form" do |f| %>
       <%= f.text_field :email, placeholder: "Email" %><br>
       <%= f.password_field :password, placeholder: "Password" %><br>
+      <%= f.text_field :given_name, placeholder: "First Name" %><br>
+      <%= f.text_field :family_name, placeholder: "Last Name" %><br>
 
       <%= f.submit "Create User", class: "pure-button pure-button-primary" %>
     <% end %>
