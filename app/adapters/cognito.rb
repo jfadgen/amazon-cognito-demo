@@ -93,4 +93,20 @@ class Cognito
       permanent: permanent,
     })
   end
+
+  def forgot_password(username:)
+    client.forgot_password({
+      client_id: @app_client_id,
+      username: username,
+    })
+  end
+
+  def confirm_forgot_password(username:, password:, confirmation_code:)
+    client.confirm_forgot_password({
+      client_id: @app_client_id,
+      username: username,
+      password: password,
+      confirmation_code: confirmation_code,
+    })
+  end
 end
