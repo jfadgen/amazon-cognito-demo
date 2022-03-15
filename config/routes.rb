@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       get 'welcome'
       get 'unauthorized'
       get 'sign_out'
+      get 'reset_password'
+      post 'reset_password', to: 'accounts#send_confirmation_code'
+      post 'confirm_reset_password'
     end
   end
 
