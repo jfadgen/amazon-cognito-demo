@@ -45,7 +45,35 @@ class AccountsController < ApplicationController
 
   def sign_out
     session[:current_user] = nil
+    # TODO: Signout of cognito.
     redirect_to accounts_path, info: "You have been signed out."
+  end
+
+  def reset_password
+    Rails.logger.info "~ reset_password"
+  end
+
+  def send_confirmation_code
+    Rails.logger.info "~ send_confirmation_code"
+    Cognito.new.forgot_password(username: params[:email])
+
+    render "confirm_reset_password"
+  end
+
+  def confirm_reset_password
+    Rails.logger.info "~ confirm_reset_password"
+    payload = {
+      username: params[:email],
+      password: params[:password],
+      confirmation_code: params[:confirmation_code],
+    }
+    Cognito.new.confirm_forgot_password(**payload)
+
+    redirect_to accounts_path, info: "Please login with your new password."
+  rescue Aws::CognitoIdentityProvider::Errors::InvalidParameterException => error
+    flash[:info] = "Invalid Confirmation Code for the email provided."
+  rescue Aws::CognitoIdentityProvider::Errors::InvalidPasswordException => error
+    flash[:info] = "Invalid password."
   end
 
   private
